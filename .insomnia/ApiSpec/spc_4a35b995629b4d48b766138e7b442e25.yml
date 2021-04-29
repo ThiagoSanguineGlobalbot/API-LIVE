@@ -1,0 +1,1305 @@
+_id: spc_4a35b995629b4d48b766138e7b442e25
+type: ApiSpec
+parentId: wrk_47ecda6930654d8f9908ac2ba3d5d82a
+modified: 1615498767788
+created: 1615224362978
+fileName: api-live
+contents: >-
+  swagger: "2.0"
+
+
+  schemes: 
+    - https
+
+    
+  host: dev.live.globalbot.ai
+
+
+  info:
+    version: 1.0.0
+    title: api-live
+    description: Documentação da api-live + Socket Zion
+    termsOfService: https://docs.google.com/document/d/1Dj7jII1cW9sxU_ISiA12vm6FPeuvMz4g6OWQpgiUdTg/edit
+    contact:
+      name: Suporte
+      url: https://www.globalbot.com.br/contato
+      email: suporte@globalbot.com.br
+
+      
+  consumes:
+    - application/json
+  produces:
+    - application/json
+
+    
+  tags:
+    - name: attendants
+    - name: department
+    - name: quickResponse
+    - name: room
+    - name: settings
+    - name: zionEventSocket
+
+    
+  paths:
+
+    '/attendants/read/{_id}':
+      get:
+        tags:
+          - attendants
+        summary: Retorna o atendente pelo ID
+        description: Retorna o atendente pelo ID
+        operationId: attendantsReadId
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: _id
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/attendants/search':
+      post:
+        tags:
+          - attendants
+        summary: Busca um atendente
+        description: Busca um atendente
+        operationId: attendantsSearch
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    cdt:
+                      type: string
+                      format: date-time
+                    options:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                    tokens:
+                      type: array
+                      items: {}
+                      example: []
+                    departments:
+                      type: array
+                      items: {}
+                      example: []
+                    queueSequential:
+                      type: boolean
+                      example: false
+                    settings:
+                      type: object
+                      properties:
+                        attendantBell:
+                          type: string
+                          example: cheers
+                    messageBell:
+                      type: string
+                      example: cricket
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/attendants/vacancy':
+      post:
+        tags:
+          - attendants
+        summary: Busca uma vaga
+        description: Busca uma vaga
+        operationId: attendantsVacancy
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                conversationId:
+                  type: string
+                origin:
+                  type: string
+                token:
+                  type: array
+                  items: {}
+                  example: []
+                departament:
+                  type: array
+                  items: {}
+                  example: []
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/attendants/settings':
+      get:
+        tags:
+          - attendants
+        summary: Retorna todas as definições do atendente
+        description: Retorna todas as definições do atendente
+        operationId: attendantsSettingsGet
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+      post:
+        tags:
+          - attendants
+        summary: Retorna todas as Definições
+        description: Retorna todas as Definições
+        operationId: attendantsSettingsPost
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    cdt:
+                      type: string
+                      format: date-time
+                    options:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                    tokens:
+                      type: array
+                      items: {}
+                      example: []
+                    departments:
+                      type: array
+                      items: {}
+                      example: []
+                    queueSequential:
+                      type: boolean
+                      example: false
+                    settings:
+                      type: object
+                      properties:
+                        attendantBell:
+                          type: string
+                          example: cheers
+                    messageBell:
+                      type: string
+                      example: cricket
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/department/create':
+      post:
+        tags:
+          - department
+        summary: Cria um departamento
+        description: Cria um departamento
+        operationId: departmentCreate
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    label:
+                      type: string
+                      example: ""
+                    color:
+                      type: string
+                      example: ""
+                    checkIn:
+                      type: boolean
+                      example: true
+                    isQueue:
+                      type: boolean
+                      example: false
+                    perAttendant:
+                      type: number
+                      example: 2
+                    distribution:
+                      type: string
+                      example: none
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/department/read/{departmentId}':
+      get:
+        tags:
+          - department
+        summary: Retorna a leitura dos departmentId
+        description: Retorna a leitura dos departmentId
+        operationId: departmentReadDepartmentId
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: departmentId
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+            
+    '/department/update/{departmentId}':
+      post:
+        tags:
+          - department
+        summary: Modifica um departmentId
+        description: Modifica um departmentId
+        operationId: departmentUpdateDepartmentId
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: departmentId
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    label:
+                      type: string
+                      example: ""
+                    color:
+                      type: string
+                      example: ""
+                    checkIn:
+                      type: boolean
+                      example: true
+                    isQueue:
+                      type: boolean
+                      example: false
+                    perAttendant:
+                      type: number
+                      example: 2
+                    distribution:
+                      type: string
+                      example: none
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+            
+    '/department/delete/{departmentId}':
+      post:
+        tags:
+          - department
+        summary: Excluí um departmentId
+        description: Excluí um departmentId
+        operationId: departmentDeleteDepartmentId
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: departmentId
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/department/options':
+      get:
+        tags:
+          - department
+        summary: Retorna as opções do departmentId
+        description: Retorna as opções do departmentId
+        operationId: departmentOptions
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+            
+    '/quickresponse/create':
+      post:
+        tags:
+          - quickResponse
+        summary: Cria uma resposta rápida
+        description: Cria uma resposta rápida
+        operationId: quickresponseCreate
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    cdt:
+                      type: string
+                      format: date-time
+                    attendants:
+                      type: array
+                      items: {}
+                      example: []
+                    title:
+                      type: string
+                      example: ""
+                    message:
+                      type: string
+                      example: ""
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/quickresponse/read':
+      get:
+        tags:
+          - quickResponse
+        summary: Retorna todas as respostas rápidas
+        description: Retorna todas as respostas rápidas
+        operationId: quickresponseRead
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/quickresponse/delete':
+      post:
+        tags:
+          - quickResponse
+        summary: Excluí uma resposta rápida
+        description: Excluí uma resposta rápida
+        operationId: quickresponseDelete
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                quickResponseId:
+                  type: string
+                  example: ""
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+            
+    '/quickresponse/push':
+      post:
+        tags:
+          - quickResponse
+        summary: Realiza um push de resposta rápida
+        description: Realiza um push de resposta rápida
+        operationId: quickresponsePush
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                quickResponseId:
+                  type: string
+                  example: ""
+                attendantId:
+                  type: object
+                  example: {}
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/quickresponse/pull':
+      post:
+        tags:
+          - quickResponse
+        summary: Realiza um pull de resposta rápida
+        description: Realiza um pull de resposta rápida
+        operationId: quickresponsePull
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                quickResponseId:
+                  type: string
+                  example: ""
+                attendantId:
+                  type: object
+                  example: {}
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/room/read/{_id}':
+      get:
+        tags:
+          - room
+        summary: Retorna listagem pelo ID
+        description: Retorna listagem pelo ID
+        operationId: roomReadId
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: _id
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/room/read/server/{_id}':
+      get:
+        tags:
+          - room
+        summary: Retorna listagem do servidor pelo ID
+        description: Retorna listagem do servidor pelo ID
+        operationId: roomReadServerId
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: _id
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+            
+    '/room/read/{_id}/{limit}':
+      get:
+        tags:
+          - room
+        summary: Retorna listagem por ID e com limit
+        description: Retorna listagem por ID e com limit
+        operationId: roomReadIdLimit
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: _id
+            type: string
+            required: true
+          - in: path
+            name: limit
+            type: number
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/room/list/{type}/{userId}':
+      get:
+        tags:
+          - room
+        summary: Retorna listagem pelo type e userId
+        description: Retorna listagem pelo type e userId
+        operationId: roomListTypeUserId
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: path
+            name: type
+            type: string
+            required: true
+          - in: path
+            name: userId
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/settings/read':
+      get:
+        tags:
+          - settings
+        summary: Retorna as definições
+        description: Retorna as definições
+        operationId: settingsRead
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/settings/update':
+      post:
+        tags:
+          - settings
+        summary: Modifica as definições
+        description: Modifica as definições
+        operationId: settingsUpdate
+        parameters:
+          - in: header
+            name: Authorization
+            type: string
+            required: true
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    initiations:
+                      type: object
+                      properties:
+                        email:
+                          type: boolean
+                          example: false
+                        sms:
+                          type: boolean
+                          example: false
+                        whatsapp:
+                          type: boolean
+                          example: false
+                        facebook:
+                          type: boolean
+                          example: false
+                    away:
+                      type: object
+                      properties:
+                        isActive:
+                          type: boolean
+                          example: true
+                        options:
+                          type: array
+                          items: {}
+                          example: [
+                            label: ""
+                          ]
+                    awayAuto:
+                      type: object
+                      properties:
+                        isActive:
+                          type: boolean
+                          example: false
+                        time:
+                          type: number
+                          example: 5
+                    messages:
+                      type: object
+                      properties:
+                        finishRoom:
+                          type: string
+                          example: "A conversa foi finalizada."
+                        transferRoom:
+                          type: string
+                          example: "A conversa foi transferida."
+                        withAttendant:
+                          type: string
+                          example: "Com o atendente."
+                        available:
+                          type: string
+                          example: "Disponível."
+                        queue:
+                          type: string
+                          example: "Em fila."
+                        queueDistribution:
+                          type: string
+                          example: "Em fila automática."
+                        waiting:
+                          type: string
+                          example: "Aguardando."
+                        noVacancy:
+                          type: string
+                          example: "Nunhum atendente no momento."
+        responses:
+          '200':
+            description: "OK!"
+          '401':
+            description: "Authorization token is not valid."
+          '404':
+            description: "Template not found"
+          '406':
+            description: "Missing authorization token"
+          '500':
+            description: "Internal Server Error"
+          '504':
+            description: "Gateway Time-out"
+
+    '/infoRoom':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Informações da sala [EVENTO]
+        description: Informações da sala [EVENTO]
+        operationId: socketInfoRoom
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+            
+    '/createGroup':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Cria uma sala de conversa [EVENTO]
+        description: Cria uma sala de conversa [EVENTO]
+        operationId: socketCreateGroup
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                attendants:
+                  type: array
+                  items: {}
+                  example: []
+                display:
+                  type: object
+                  properties:
+                    label:
+                      type: string
+        responses:
+          '200':
+            description: "OK!"
+          '406':
+            description: "Could not create a conversation"
+
+    '/pushGroup':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Adiciona um atendente na sala [EVENTO]
+        description: Adiciona atendente na sala [EVENTO]
+        operationId: socketPushGroup
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+                attendantId:
+                  type: string
+                  example: ""
+        responses:
+          '200':
+            description: "OK!"
+          '406':
+            description: "Could not create a conversation"
+
+    '/pullGroup':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Remove o atendente da sala [EVENTO]
+        description: Remove o atendente da sala [EVENTO]
+        operationId: socketPullGroup
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+                attendantId:
+                  type: string
+                  example: ""
+        responses:
+          '200':
+            description: "OK!"
+          '406':
+            description: "Could not create a conversation"
+
+    '/quitGroup':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Atendente sai da sala [EVENTO]
+        description: Atendente sai da sala [EVENTO]
+        operationId: socketQuitGroup
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+        responses:
+          '200':
+            description: "OK!"
+          '406':
+            description: "Could not create a conversation"
+
+    '/leaveRoom':
+      get:
+        tags:
+          - zionEventSocket 
+        summary: Sair da sala [EVENTO]
+        description: Sair da sala [EVENTO]
+        operationId: socketLeaveRoom
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+
+    '/enterRoom':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Entrar na sala [EVENTO]
+        description: Entrar na sala [EVENTO]
+        operationId: socketEnterRoom
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+            
+    '/takeRoom':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Atendente assume a conversa [EVENTO]
+        description: Atendente assume a conversa [EVENTO]
+        operationId: socketTakeRoom
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+
+    '/finishRoom':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Finaliza a sala [EVENTO]
+        description: Finaliza a sala [EVENTO]
+        operationId: socketFinishRoom
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+
+    '/archiveRoom':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Arquiva a sala [EVENTO]
+        description: Arquiva a sala [EVENTO]
+        operationId: socketArchiveRoom
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+            
+    '/transferRoom':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Transfere para sala [EVENTO]
+        description: Transfere para sala [EVENTO]
+        operationId: socketTransferRoom
+        parameters:
+          - in: body
+            name: payload
+            required: true
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: ""
+                attendantId:
+                  type: string
+                  example: ""
+                departmentId:
+                  type: string
+                  example: ""
+                isDepartment:
+                  type: string
+                  example: ""
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+
+    '/pushMessage':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Envia a mensagem por whatsapp ou facebook [EVENTO]
+        description: Envia a mensagem por whatsapp ou facebook [EVENTO]
+        operationId: socketPushMessage
+        parameters:
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    roomId:
+                      type: string
+                      example: ""
+                    message:
+                      type: string
+                      example: ""
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+
+    '/typing':
+      get:
+        tags:
+          - zionEventSocket
+        summary: typing [EVENTO]
+        description: typing [EVENTO]
+        operationId: socketTyping
+        parameters:
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    roomId:
+                      type: string
+                      example: ""
+                    preview:
+                      type: string
+                      example: ""
+                    typing:
+                      type: boolean
+                      example: true
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+
+    '/counterByStatus':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Mostra o status [EVENTO]
+        description: Mostra o status [EVENTO]
+        operationId: socketCounterByStatus
+        parameters:
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    status:
+                      type: number
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+
+    '/changeStatus':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Altera o status [EVENTO]
+        description: Altera o status [EVENTO]
+        operationId: socketChangeStatus
+        parameters:
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    status:
+                      type: number
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+
+    '/attendantChangeStatus':
+      get:
+        tags:
+          - zionEventSocket
+        summary: Altera o status do atendente [EVENTO]
+        description: Altera o status do atendente [EVENTO]
+        operationId: socketattendantChangeStatus
+        parameters:
+          - in: body
+            name: Body
+            required: true
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    userId:
+                      type: string
+                      example: ""
+                    status:
+                      type: number
+        responses:
+          "200":
+            description: "OK!"
+          "406":
+            description: "Missing Information"
+contentType: yaml
